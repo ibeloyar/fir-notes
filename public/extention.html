@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example</title>
+  <style>
+    body {
+      display: flex;
+      height: calc(100vh - 48px);
+      flex-direction: column;
+      padding: 24px 0;
+    }
+    input {
+      background-color: var(--input-bg-color);
+      color: var(--input-text-color);
+      font-family: var(--input-font-family);
+      font-size: var(--input-font-size);
+      border: 1px solid #555;
+    }
+    input:focus {
+      outline: none;
+      outline-offset: 2px;
+      border: 1px solid var(--vscode-focusBorder);
+      box-shadow: 0 0 3px var(--vscode-focusBorder);
+    }
+    textarea {
+      padding: 4px;
+      border: 1px solid #555;
+      border-radius: 4px;
+      width: calc(100% - 10px);
+      resize: vertical;
+      background-color: var(--textarea-bg-color);
+      color: var(--textarea-text-color);
+      font-family: var(--textarea-font-family);
+      font-size: var(--textarea-font-size);
+    }
+    textarea:focus {
+      outline: none;
+      outline-offset: 2px;
+      border: 1px solid var(--vscode-focusBorder);
+      box-shadow: 0 0 3px var(--vscode-focusBorder);
+    }
+    button {
+      cursor: pointer;
+      border: var(--vscode-button-border);
+      color: var(--vscode-button-foreground);
+      background-color: var(--vscode-button-background);
+      border-radius: 4px;
+    }
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .title {
+      font-family: var(--vscode-font-family);
+      color: var(--vscode-editor-foreground);
+      padding: 0 8px;
+      margin: 0 0 8px;
+    }
+    .todo-list__wrapper {
+      flex: 1;
+      padding: 4px;
+      margin: 4px;
+      overflow-y: auto;
+    }
+    .todo-list {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+    }
+    .todo-list li {
+      list-style: none;
+      padding: 0 0 4px 0;
+      margin: 0;
+      width: 100%;
+      display: flex;
+      word-break: break-all;
+      justify-content: space-between;
+      align-items: start;
+    }
+    .task-text {
+      flex: 1;
+      padding: 2px 0 0 4px;
+    }
+    .delete-button {
+      background-color: transparent;      
+      color: var(--textarea-text-color);
+    }
+    .user_settings {
+      width: calc(100% - 8px);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin: 4px;
+    }
+    .control-panel {
+      margin: 4px;
+    }
+    .control-panel__buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    .add_bnt {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+    }
+    .add_bnt .icon {
+      filter: invert(0%);
+    }
+    .add_bnt:hover {
+      background-color: var(--vscode-button-hoverBackground);
+    }
+    .vscode-dark .add_bnt .icon {
+      filter: invert(100%);
+    }
+    .clear_bnt {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--vscode-editor-foreground);
+      background-color: transparent;
+    }
+    .clear_bnt:hover {
+      background-color: var(--vscode-button-hoverBackground);
+    }
+    .icon {
+      pointer-events: none;
+      filter: invert(100%);
+    }
+    .vscode-dark .icon {
+      filter: invert(0%);
+    }
+  </style>
+</head>
+<body>
+  <main class="wrapper">
+    <section class="control-panel">
+      <span>Ctrl + Enter - for create</span>
+      <textarea id="msg_textarea" autofocus rows="4"></textarea>
+      <div class="control-panel__buttons">
+        <button id="clear_bnt_id" class="clear_bnt" onclick="onClear(event)">
+          <img id="clear_bnt_icon"  class="icon" alt="clean_icon" width="20" height="20" />
+          Clear all
+        </button>
+        <button id="add_bnt_id" class="add_bnt" onclick="onAdd(event)">
+          <img id="add_bnt_icon" class="icon" alt="add_icon" width="20" height="20" />
+          Create task
+        </button>
+      </div>
+    </section>
+    <br/>
+    <br/>
+    <h2 id="title" class="title"></h2>
+    <div id="content" class="todo-list__wrapper"></div>
+  </main>
+
+  <script>
+    	// <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src https://*; media-src https://*; font-src ${webview.cspSource}; style-src 'unsafe-inline' ${webview.cspSource}; script-src 'nonce-${nonce}';">
+
+      const vscode = acquireVsCodeApi();
+
+      function renderTodoList(tasks) {
+        let html = "<ul class='todo-list'>";
+
+        for (const item of tasks) {
+          html += `
+            <li>
+              <input data-item-id=${item.id} type="checkbox" ${item.done ? "checked" : ""} onchange="onChange(event)" />
+              <span class="task-text">${item.text}</span>
+              <button class="delete-button" data-item-id=${item.id} type="checkbox" ${item.done ? "checked" : ""} onclick="onDelete(event)">
+                <img id="delete_bnt_icon" class="icon" src="" width=16 height=16 alt="delete_icon"/>
+              </button>
+            </li>
+          `;
+        }
+
+        html += "</ul>";
+        return html;
+      }
+      
+      const title = document.getElementById('title');
+      const addTaskBtn = document.getElementById('add_bnt_id');
+      const addTaskBtnIcon = document.getElementById('add_bnt_icon');
+      const clearTaskBtnIcon = document.getElementById('clear_bnt_icon');
+      const taskTextarea = document.getElementById('msg_textarea');
+
+      title.textContent = new Date(Date.now()).toDateString();
+
+      window.addEventListener('message', event => {
+          const message = event.data;
+          if (message.command === 'refresh_list') {
+              const tasks = message.tasks;
+              document.getElementById('content').innerHTML = renderTodoList(tasks);
+
+              addTaskBtnIcon.src = message.icons.addIcon;
+              clearTaskBtnIcon.src = message.icons.clearIcon;
+
+              const deleteIcons = document.querySelectorAll('#delete_bnt_icon');
+
+              deleteIcons.forEach((item) => {
+                item.src = message.icons.deleteIcon;
+              })
+
+              if (message.currentColorThemeIsDark) {
+                document.body.classList.add('dark-color-theme');
+              }
+
+              // const metaCSPTag = document.getElementById('csp_meta_tag');
+
+              // metaCSPTag.content = message.metaCSPContent;
+          }
+      });
+
+      function onChange(event) {
+          const itemId = event.target.getAttribute('data-item-id');
+          
+          vscode.postMessage({ action: 'toggle_task', id: itemId, text: taskTextarea.value, done: event.target.checked });
+      }
+
+      function onDelete(event) {
+          const itemId = event.target.getAttribute('data-item-id');
+          
+          vscode.postMessage({ action: 'delete_task', id: itemId, text: '', done: false });
+      }
+
+      function onClear(event) {
+          vscode.postMessage({ action: 'clear_state', id: '', text: '', done: false });
+      }
+
+      function onAdd(event) {
+        vscode.postMessage({ action: 'add_task', id: '', text: taskTextarea.value, done: false });
+
+        taskTextarea.value = '';
+      }
+  </script>
+</body>
+</html>

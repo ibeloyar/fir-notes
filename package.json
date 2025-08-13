@@ -1,0 +1,77 @@
+{
+  "name": "fir-notes",
+  "displayName": "Fir notes",
+  "description": "An extension for taking notes, which can be useful for those who are planning a work session.",
+  "version": "1.0.0",
+  "publisher": "ibeloyar",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "firNotesContainer",
+          "title": "fir-notes",
+          "icon": "./public/icons/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "firNotesContainer": [
+        {
+          "type": "webview",
+          "id": "FirNotes",
+          "name": ""
+        }
+      ]
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ibeloyar/fir-notes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ibeloyar/fir-notes/issues"
+  },
+  "homepage": "https://github.com/ibeloyar/fir-notes#readme",
+  "icon": "pine.png",
+  "keywords": [
+    "notes",
+    "fir"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "1.102.0",
+    "@types/mocha": "10.0.10",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "8.39.0",
+    "@typescript-eslint/parser": "8.39.0",
+    "eslint": "9.32.0",
+    "esbuild": "0.25.8",
+    "npm-run-all": "4.1.5",
+    "typescript": "5.9.2",
+    "vsce": "2.15.0",
+    "@vscode/test-cli": "0.0.11",
+    "@vscode/test-electron": "2.5.2"
+  }
+}
