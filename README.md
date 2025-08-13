@@ -1,7 +1,7 @@
-<table border="0" style="border: none;">
-  <tr style="border-color: transparent;" valign="center">
-    <td style="border-color: transparent;"><img src="https://raw.githubusercontent.com/ibeloyar/fir-notes/refs/heads/main/public/assets/pine.png" alt="logo" width="50" /></td>
-    <td style="border-color: transparent;"><h1 style="margin: 0 0 0 10px;">Notes extension for Visual Studio Code</h1></td>
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr valign="center">
+    <td><img src="https://raw.githubusercontent.com/ibeloyar/fir-notes/refs/heads/main/public/assets/pine.png" alt="logo" width="50" /></td>
+    <td><h1 style="margin: 0 0 0 10px;">Notes extension for Visual Studio Code</h1></td>
   </tr>
 </table>
 
