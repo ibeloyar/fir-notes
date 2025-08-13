@@ -1,7 +1,7 @@
 <table border="0" style="border: none;">
-  <tr style="border: none;" valign="center">
-    <td style="border: none;"><img src="https://raw.githubusercontent.com/ibeloyar/fir-notes/refs/heads/main/public/assets/pine.png" alt="logo" width="50" /></td>
-    <td style="border: none;"><h1 style="margin: 0 0 0 10px;">Notes extension for Visual Studio Code</h1></td>
+  <tr style="border-color: transparent;" valign="center">
+    <td style="border-color: transparent;"><img src="https://raw.githubusercontent.com/ibeloyar/fir-notes/refs/heads/main/public/assets/pine.png" alt="logo" width="50" /></td>
+    <td style="border-color: transparent;"><h1 style="margin: 0 0 0 10px;">Notes extension for Visual Studio Code</h1></td>
   </tr>
 </table>
 
@@ -30,7 +30,7 @@ Currently, you can install Fir Notes in two ways:
 ## Extension features
 A simple extension that allows you to create tasks and notes without leaving VSCode. Which can be useful for those who want to define a list of tasks for a working session. The "Active bar" displays a badge with the number of remaining tasks. The state of the list is saved between VSCode launches.
 
-<img src="https://raw.githubusercontent.com/ibeloyar/fir-notes/refs/heads/main/public/assets/preview.png" alt="logo" style="display: block;" />
+<img src="https://raw.githubusercontent.com/ibeloyar/fir-notes/refs/heads/main/public/assets/preview.png" alt="logo" />
 
 ## Feedback
 If you have suggestions or find a problem with the extension, please [create an issue in the repository](https://github.com/fir-libs/fir-dark-theme/issues).  
