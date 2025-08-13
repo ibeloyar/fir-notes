@@ -1,9 +1,4 @@
-<table border="0" cellpadding="0" cellspacing="0">
-  <tr valign="center">
-    <td><img src="https://raw.githubusercontent.com/ibeloyar/fir-notes/refs/heads/main/public/assets/pine.png" alt="logo" width="50" /></td>
-    <td><h1 style="margin: 0 0 0 10px;">Notes extension for Visual Studio Code</h1></td>
-  </tr>
-</table>
+# Notes extension for Visual Studio Code
 
 ![Static Badge](https://img.shields.io/badge/VSCode-Extension-078f64?labelColor=blue&logoColor=black)
 ![Static Badge](https://img.shields.io/badge/license-MIT-blue)
