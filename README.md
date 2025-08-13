@@ -1,5 +1,5 @@
 <table border="0" style="border: none;">
-  <tr valign="center">
+  <tr style="border: none;" valign="center">
     <td style="border: none;"><img src="https://raw.githubusercontent.com/ibeloyar/fir-notes/refs/heads/main/public/assets/pine.png" alt="logo" width="50" /></td>
     <td style="border: none;"><h1 style="margin: 0 0 0 10px;">Notes extension for Visual Studio Code</h1></td>
   </tr>
