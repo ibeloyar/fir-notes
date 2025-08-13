@@ -3,7 +3,7 @@
   "displayName": "Fir notes",
   "description": "An extension for taking notes, which can be useful for those who are planning a work session.",
   "version": "1.0.0",
-  "publisher": "ibeloyar",
+  "publisher": "ibeloyar <beloyar.dev@outlook.com>",
   "engines": {
     "vscode": "^1.103.0"
   },
@@ -40,7 +40,7 @@
     "url": "https://github.com/ibeloyar/fir-notes/issues"
   },
   "homepage": "https://github.com/ibeloyar/fir-notes#readme",
-  "icon": "pine.png",
+  "icon": "public/assets/pine.png",
   "keywords": [
     "notes",
     "fir"
